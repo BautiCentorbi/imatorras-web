@@ -36,7 +36,8 @@ export default function DondeComprarPage() {
         lede="No vendemos online: te ponemos en contacto con el distribuidor de tu zona o, si preferís, coordinamos la compra directamente con nuestro equipo comercial."
       />
 
-      <section className="grid gap-14 px-6 py-20 md:grid-cols-[1fr_1fr] md:px-16 md:py-28">
+      <section className="py-20 md:py-28">
+        <div className="mx-auto grid max-w-[1440px] gap-14 px-6 md:grid-cols-[1fr_1fr] md:px-16">
         <Reveal>
           <p className="t-destacado mb-5 text-[11px] text-acento">Distribución nacional</p>
           <h2 className="t-headline mb-8 max-w-sm text-balance text-3xl">
@@ -83,9 +84,11 @@ export default function DondeComprarPage() {
             </a>
           </div>
         </Reveal>
+        </div>
       </section>
 
       <ContactBand
+        contained
         eyebrow="Compra directa"
         title="¿Preferís comprar directo a la bodega?"
         body="Coordinamos la venta directa para consumidores finales según disponibilidad y ubicación. Contanos qué vinos te interesan."

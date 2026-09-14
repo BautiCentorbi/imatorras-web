@@ -20,26 +20,25 @@ export default function VinedosPage() {
       <PageHeader
         eyebrow="Viñedos y terroir"
         title="Tres fincas, un mismo Valle de Uco."
-        lede="San José, El Peral y Tupungato: los ejes identitarios de cada línea de vinos. Viñas de hasta 130 años, a 1200 metros sobre el nivel del mar."
-      />
-
-      <section className="px-6 py-20 md:px-16">
-        <Reveal>
-          <p className="t-body max-w-[62ch] text-[15.5px] leading-[1.8] text-basalto/72">
-            Nuestros viñedos están ubicados en lo más alto del Valle de Uco, en Tupungato. La altura y
-            el salto térmico entre el día y la noche retrasan la maduración de la fruta y aportan la
-            frescura y la acidez que definen el estilo de la bodega. Cada finca tiene nombre propio, y
-            cada una de nuestras líneas de vino nace directamente de una de ellas.
-          </p>
-        </Reveal>
-      </section>
+        lede="San José, El Peral y Tupungato: los ejes identitarios de cada línea de vinos. Viñas de hasta 130 años, entre 1100 y 1300 metros sobre el nivel del mar."
+        image="/images/Parrallax-Viñedos.webp"
+        imagePosition="50% 75%"
+        parallax
+      >
+        <p className="t-body mt-5 max-w-xl text-[15.5px] leading-relaxed text-alba/78">
+          Nuestros viñedos están ubicados en lo más alto del Valle de Uco, en Tupungato. La
+          altura y el salto térmico entre el día y la noche retrasan la maduración de la fruta y
+          aportan la frescura y la acidez que definen el estilo de la bodega. Cada finca tiene
+          nombre propio, y cada una de nuestras líneas de vino nace directamente de una de ellas.
+        </p>
+      </PageHeader>
 
       {fincas.map((f, i) => (
         <section
           key={f.slug}
-          className={`px-6 py-20 md:px-16 md:py-24 ${i % 2 === 1 ? "bg-basalto text-alba" : ""}`}
+          className={`py-20 md:py-24 ${i % 2 === 1 ? "bg-basalto text-alba" : ""}`}
         >
-          <Reveal className="grid gap-10 md:grid-cols-[0.8fr_1fr] md:items-start">
+          <Reveal className="mx-auto grid max-w-[1440px] gap-10 px-6 md:grid-cols-[0.8fr_1fr] md:items-start md:px-16">
             <div>
               <span className={`t-destacado inline-block rounded-sm px-2.5 py-1 text-[10px] ${f.tagClass}`}>
                 {f.apelacion}
@@ -86,6 +85,7 @@ export default function VinedosPage() {
       ))}
 
       <ContactBand
+        contained
         title="Conocé los vinos que nacen de esta tierra."
         body="Tres fincas, tres líneas: Don José, Apelación y Matorras. Cada una con su propio carácter."
       />

@@ -25,7 +25,8 @@ export default function ContactoPage() {
         lede="Para consultas comerciales, prensa, distribución o cualquier otra cosa — te responde nuestro equipo directamente, no un bot."
       />
 
-      <section className="grid gap-16 px-6 py-20 md:grid-cols-[0.9fr_1.1fr] md:px-16 md:py-28">
+      <section className="py-20 md:py-28">
+        <div className="mx-auto grid max-w-[1440px] gap-16 px-6 md:grid-cols-[0.9fr_1.1fr] md:px-16">
         <Reveal className="flex flex-col gap-10">
           <Link
             href={WHATSAPP_URL}
@@ -68,12 +69,12 @@ export default function ContactoPage() {
           <div className="rounded-sm border border-basalto/10 bg-alba-card p-8 md:p-10">
             <p className="t-headline mb-1 text-xl">Formulario de contacto</p>
             <p className="t-body mb-7 text-[13px] text-basalto/50">
-              Se abre tu cliente de email con los datos cargados — todavía no tenemos un buzón
-              automático conectado.
+              Te respondemos por email a la brevedad.
             </p>
             <ContactForm />
           </div>
         </Reveal>
+        </div>
       </section>
 
       <SiteFooter />

@@ -27,8 +27,8 @@ export default function VinosPage() {
         lede="Partidas limitadas, mínima intervención y foco en el terroir. Cada línea tiene su propio carácter, pero comparte la misma filosofía."
       />
 
-      <section className="px-6 py-20 md:px-16 md:py-24">
-        <Reveal className="grid gap-6 md:grid-cols-3">
+      <section className="py-20 md:py-24">
+        <Reveal className="mx-auto grid max-w-[1440px] gap-6 px-6 md:grid-cols-3 md:px-16">
           {lineas.map((v) => (
             <Link
               key={v.slug}
@@ -78,7 +78,7 @@ export default function VinosPage() {
         </Reveal>
       </section>
 
-      <ContactBand />
+      <ContactBand contained />
       <SiteFooter />
     </div>
   );

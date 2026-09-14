@@ -36,6 +36,11 @@ yarn-error.log*
 # vercel
 .vercel
 
+# material de referencia interno (brandbook, fichas técnicas, listas de
+# precios ARS/EUR/USD) — NO debe quedar público: todo /public sirve tal
+# cual en el sitio. Se mantiene solo local para consulta de Claude/equipo.
+/public/claude_context
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

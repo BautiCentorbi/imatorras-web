@@ -1,26 +1,62 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Basalto San José / Alba del Peral — colores base del manual de marca */
+  --color-basalto: #212121;
+  --color-alba: #ebebeb;
+  --color-alba-card: #f4f4f2;
+
+  /* Acento — uso excepcional */
+  --color-acento: #ab1644;
+
+  /* Colores de línea, uno por Apelación / línea de producto */
+  --color-linea-sanjose: #911915;
+  --color-linea-tupungato: #52748d;
+  --color-linea-peral: #83a563;
+  --color-linea-rosado: #e5a1b3;
+
+  --background: var(--color-alba);
+  --foreground: var(--color-basalto);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-basalto: var(--color-basalto);
+  --color-alba: var(--color-alba);
+  --color-alba-card: var(--color-alba-card);
+  --color-acento: var(--color-acento);
+  --color-linea-sanjose: var(--color-linea-sanjose);
+  --color-linea-tupungato: var(--color-linea-tupungato);
+  --color-linea-peral: var(--color-linea-peral);
+  --color-linea-rosado: var(--color-linea-rosado);
+  --font-sans: var(--font-host-grotesk);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --animate-marquee: marquee 32s linear infinite;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), -apple-system, "Helvetica Neue", Arial, sans-serif;
 }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Jerarquía tipográfica — tracking según el Manual de Identidad Visual */
+.t-headline { font-weight: 700; letter-spacing: -0.025em; line-height: 0.98; }
+.t-subtitle { font-weight: 500; letter-spacing: -0.01em; }
+.t-cta { font-weight: 600; font-style: italic; letter-spacing: -0.01em; }
+.t-body { font-weight: 400; letter-spacing: 0.005em; }
+.t-destacado { font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }

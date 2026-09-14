@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Host_Grotesk } from "next/font/google";
+import { CookieConsent } from "@/components/CookieConsent";
+import { RecaptchaScript } from "@/components/RecaptchaScript";
 import "./globals.css";
 
 const hostGrotesk = Host_Grotesk({
@@ -25,7 +27,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="es" className={`${hostGrotesk.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-alba text-basalto">{children}</body>
+      <body className="min-h-full flex flex-col bg-alba text-basalto">
+        {children}
+        <CookieConsent />
+        <RecaptchaScript />
+      </body>
     </html>
   );
 }

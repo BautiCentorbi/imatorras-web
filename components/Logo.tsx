@@ -61,11 +61,25 @@ const LINE_SOURCES: Record<LineVariant, string> = {
   matorras: "/logos/lineas/Logo-Matorras.webp",
 };
 
+// Cada archivo trae un lienzo distinto (Apelación es bien más ancho que
+// los otros dos) y, dentro de ese lienzo, la letra ocupa un porcentaje
+// de alto distinto. Don José es la referencia ("el alto perfecto"); los
+// otros dos se escalan para igualar esa proporción real de letra, medida
+// con sharp sobre el bounding box de cada glifo (recorte de transparencia).
+const LINE_SCALE: Record<LineVariant, number> = {
+  "don-jose": 1,
+  apelacion: 1.024,
+  matorras: 1.035,
+};
+
 /**
  * Wordmarks de línea (DON JOSÉ / APELACIÓN / MATORRAS). Los archivos
  * fuente solo existen en versión clara (pensados para fondo oscuro);
  * se derivan a oscuro con `invert` cuando van sobre Alba, en vez de
- * pedir un segundo export por línea.
+ * pedir un segundo export por línea. Se renderizan con `fill` (en vez
+ * de width/height fijos) porque los tres lienzos tienen proporciones
+ * distintas entre sí — declarar una sola relación de aspecto para los
+ * tres distorsionaba a Apelación.
  */
 export function LineWordmark({
   line,
@@ -77,13 +91,16 @@ export function LineWordmark({
   className?: string;
 }) {
   return (
-    <Image
-      src={LINE_SOURCES[line]}
-      alt=""
-      aria-hidden="true"
-      width={1080}
-      height={320}
-      className={`h-auto w-full object-contain ${tone === "dark" ? "invert" : ""} ${className ?? ""}`}
-    />
+    <div className={`relative ${className ?? ""}`}>
+      <Image
+        src={LINE_SOURCES[line]}
+        alt=""
+        aria-hidden="true"
+        fill
+        sizes="200px"
+        style={{ transform: `scale(${LINE_SCALE[line]})`, transformOrigin: "left center" }}
+        className={`object-contain object-left ${tone === "dark" ? "invert" : ""}`}
+      />
+    </div>
   );
 }

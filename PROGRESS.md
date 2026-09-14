@@ -106,6 +106,39 @@ mano; no se suben al repo.
 
 ## Historial de sesiones
 
+### 2026-09-14 (cont.) — Pulido de header y tarjetas de Vinos
+- Nav vidrio: varias iteraciones hasta que quedó bien — clave técnica
+  que costó encontrar: **`max-width` siempre necesita un valor
+  numérico concreto en ambos estados** (`100vw` en reposo, `900px` al
+  scrollear). Si un estado no declara `max-width` (queda en `none`),
+  el navegador no puede interpolarlo y la transición se corta de
+  golpe apenas arranca. El ancho del vidrio y el ancho del contenido
+  interno (nav, logo, WhatsApp) están separados en dos capas para que
+  el fondo llegue de punta a punta sin estirar el contenido.
+- Header: el logo pasó a ser `Logo iMatorras_Texto.png` (solo
+  wordmark, sin isotipo) y ahora escala responsivo (`h-10` →
+  `md:h-12` → `xl:h-14`) — antes era un tamaño fijo chico que en
+  pantallas grandes (TV) no se notaba.
+- Tarjetas de Vinos: las tres ahora tienen foto real de botella de
+  fondo (`public/images/Banner-{Don_Jose,Apelacion,Matorras}.webp`),
+  no fondo plano. Donde la botella queda a la izquierda de la foto
+  (Don José, Matorras) el bloque de contenido se corre a la derecha
+  con un `margin-left` porcentual (`ml-[46%]`) para no taparla; donde
+  queda a la derecha (Apelación) el contenido se queda a la
+  izquierda con `max-w-[54%]`. El puntaje de Matorras se corrigió a
+  **93** (específico del Rosado de Malbec, que es la foto usada).
+- Wordmarks de línea (`components/Logo.tsx`): bug real encontrado con
+  `sharp` — el componente declaraba `width={1080} height={320}` fijo
+  para los tres, pero el archivo de Apelación en realidad tiene un
+  lienzo más ancho (`1487×320`), lo que rompía su relación de
+  aspecto. Se cambió a `fill` (toma las dimensiones reales del
+  archivo) y se agregó un `LINE_SCALE` por línea (Don José = 1,
+  referencia; Apelación ×1.024; Matorras ×1.035) calculado midiendo
+  cuánto ocupa la letra dentro de cada lienzo, para que las tres se
+  vean a la misma altura visual pase lo que pase con el archivo.
+- Commit + PR de esta sesión: revisar el historial de PRs en GitHub
+  para el link exacto (la rama base ya tiene el PR #1 mergeado).
+
 ### 2026-09-14 — Auditoría + primer Home real
 - Auditoría del sitio actual (1 sola URL indexable, sin WhatsApp/form,
   sin blog) → propuesta de arquitectura, estrategia de conversión y

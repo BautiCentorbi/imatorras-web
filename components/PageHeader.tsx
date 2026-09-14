@@ -16,6 +16,7 @@ export function PageHeader({
   image,
   imagePosition = "50% 50%",
   parallax = false,
+  tall = false,
   back = true,
   children,
 }: {
@@ -26,13 +27,19 @@ export function PageHeader({
   imagePosition?: string;
   /** La imagen se mueve más lento que el scroll en vez de quedar fija. */
   parallax?: boolean;
+  /** Más presencia vertical aunque no tenga foto de fondo. */
+  tall?: boolean;
   back?: boolean;
   children?: ReactNode;
 }) {
   return (
     <section
       className={`relative overflow-hidden bg-basalto pt-[150px] text-alba md:pt-[170px] ${
-        image ? "min-h-[85vh] md:min-h-[90vh]" : "pb-20 md:pb-24"
+        image
+          ? "min-h-[85vh] md:min-h-[90vh]"
+          : tall
+            ? "min-h-[62vh] pb-16 md:min-h-[68vh] md:pb-20"
+            : "pb-20 md:pb-24"
       }`}
     >
       {image && (

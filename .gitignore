@@ -37,10 +37,13 @@ yarn-error.log*
 # vercel
 .vercel
 
-# material de referencia interno (brandbook, fichas técnicas, listas de
-# precios ARS/EUR/USD) — NO debe quedar público: todo /public sirve tal
-# cual en el sitio. Se mantiene solo local para consulta de Claude/equipo.
+# material de referencia interno (brandbook, brochure, listas de precios
+# ARS/EUR/USD) — NO debe quedar público: todo /public sirve tal cual en
+# el sitio. Se mantiene solo local para consulta de Claude/equipo. Las
+# fichas técnicas por vino SÍ son públicas — ver public/fichas-tecnicas
+# (copia prolija, sirve desde ahí) en vez de esta carpeta de origen.
 /public/claude_context
+/public/technical_sheets
 
 # typescript
 *.tsbuildinfo

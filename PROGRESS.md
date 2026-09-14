@@ -162,6 +162,62 @@ mano; no se suben al repo.
 
 ## Historial de sesiones
 
+### 2026-09-14 (cont. 7) — Tono de Historia, Swiss Design, fotos de botella y fichas técnicas descargables
+- **Historia — copy:** se sacó el nombre "Joaquín Campos" del texto (el
+  usuario lo pidió después de haberlo agregado), se subió el tono de
+  "El proyecto" (evitar frases informales tipo "sepa o no de vinos" —
+  ahora "un vino no necesita explicación para emocionar... sin dejar a
+  nadie afuera"), y se resumió/movió la explicación de "por qué
+  iMatorras" (la "i" + Matorras) al Hero en vez de tener su propia
+  sección — pero manteniendo el texto completo y con la misma
+  jerarquía visual que el lede, no como algo secundario/chico.
+- **Historia — Swiss Design:** a pedido del usuario ("Swiss Design en
+  los bloques de abajo del Hero"), "El origen" y "El proyecto" se
+  rediseñaron para que NO se vean iguales entre sí: "El origen" quedó
+  con grilla de 12 columnas (número 01, columna de label, columna de
+  cuerpo separada por línea vertical); "El proyecto" quedó con un
+  tratamiento distinto — fondo oscuro, frase grande tipo afiche, y
+  los tres párrafos en tres columnas debajo de una línea horizontal.
+  El Hero también creció un poco (`tall` en `PageHeader`, nuevo prop
+  opcional, sin afectar otras páginas).
+- **Viñedos — fincas:** se probó unificar las 3 fincas en una sola
+  sección tipo catálogo (grilla con números y separadores) — al
+  usuario no le gustó, se revirtió a las 3 secciones apiladas
+  alternando fondo (como estaba). **No volver a intentar ese cambio
+  sin que lo pida de nuevo.**
+- **Fotos de botella reales:** el usuario dejó 9 fotos de producto en
+  `public/images/bottles/` (una por vino) — se sumaron al lado de
+  cada ficha en `/vinos/[linea]` con `mix-blend-multiply` para que el
+  fondo blanco de la foto se funda con el fondo hueso del sitio.
+- **Fichas técnicas descargables:** el usuario había movido los PDF
+  de `public/claude_context/FT-*.pdf` a `public/technical_sheets/`
+  (carpeta agregada a `.gitignore`, junto con `claude_context` — son
+  staging/privado). Se copiaron con nombres prolijos a
+  `public/fichas-tecnicas/` (esa sí pública — no tienen precios, a
+  diferencia del resto de `claude_context`) y se sumó un botón
+  "Descargar ficha técnica (PDF)" por vino.
+- **Destacados con íconos:** origen/altitud/cepas de cada vino ahora
+  se muestran con íconos (`react-icons`: `FiMapPin`, `LuMountain`,
+  `GiGrapes` — ver `components/icons.tsx`) en vez de solo texto.
+  Se agregó el campo `altitud` a cada ficha en `lib/wines.ts`
+  (respeta las correcciones de altitud por finca ya dadas: San José
+  1200, Tupungato/Gottardini 1100, El Peral/Manoni 1300, "1200–1300"
+  para los cortes de más de una finca). Tamaño de ícono/texto subido
+  una vez a pedido del usuario (18px / 13.5px) porque se veía chico,
+  sobre todo en su TV de 42" — **si vuelve a pedir agrandar texto por
+  eso, puede ser indicio de que conviene un ajuste general de escala
+  tipográfica en `xl:`, no parche por parche.**
+- **Botón de ficha técnica con color de línea:** el botón pasó a ser
+  secundario (borde, no relleno) con el color de la apelación de
+  origen del vino — mapa `BUTTON_COLOR` en
+  `app/vinos/[linea]/page.tsx`, usando los tokens de color de línea
+  ya definidos (`linea-sanjose`, `linea-tupungato`, `linea-peral`,
+  `linea-rosado`) más `acento` para los cortes de varias fincas.
+  **Importante:** las clases de Tailwind deben existir como strings
+  literales completos en el código (`border-linea-sanjose ...`) para
+  que el compilador las genere — no se pueden armar dinámicamente
+  con template strings (`border-${color}`) o Tailwind no las detecta.
+
 ### 2026-09-14 (cont. 6) — Historia (estampilla + "por qué iMatorras"), hero con parallax, y un bug real de alineación
 - **Historia:** se sumó la estampilla de San Martín (`public/images/Estampilla-San_Martin.webp`)
   como recurso en el Hero (vía `children` de `PageHeader`), y una

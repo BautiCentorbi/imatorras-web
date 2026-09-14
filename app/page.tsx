@@ -43,6 +43,10 @@ const vinos = [
     texto: "Malbec, Pinot Noir, Cabernet Franc y Chardonnay. 12–18 meses en roble francés de primer uso.",
     puntos: 95,
     dark: true,
+    // botella a la izquierda de la foto → el contenido se corre a la derecha
+    bgImage: "/images/Banner-Don_Jose.webp",
+    bgPosition: "18% 42%",
+    bottleSide: "left" as const,
   },
   {
     linea: "APELACIÓN",
@@ -52,6 +56,10 @@ const vinos = [
     texto: "San José, El Peral, Tupungato. Viñas de hasta 130 años, espaldero bajo, 1200 msnm.",
     puntos: 94,
     dark: false,
+    // botella a la derecha de la foto → el contenido se queda a la izquierda
+    bgImage: "/images/Banner-Apelacion.webp",
+    bgPosition: "70% 45%",
+    bottleSide: "right" as const,
   },
   {
     linea: "MATORRAS",
@@ -59,8 +67,12 @@ const vinos = [
     tagClass: "bg-linea-rosado text-[#5b1523]",
     categoria: "Expresión varietal",
     texto: "Malbec varietal y Rosado de Malbec — jugos liberados sin prensado ni sangría, sin enología invasiva.",
-    puntos: 92,
+    puntos: 93,
     dark: false,
+    // botella a la izquierda de la foto → el contenido se corre a la derecha
+    bgImage: "/images/Banner-Matorras.webp",
+    bgPosition: "14% 60%",
+    bottleSide: "left" as const,
   },
 ];
 
@@ -217,39 +229,61 @@ export default function Home() {
                     : "border border-basalto/12 bg-alba-card"
                 }`}
               >
-                <span
-                  aria-hidden
-                  className={`t-headline pointer-events-none absolute -right-2 -top-6 select-none text-[160px] leading-none ${
-                    v.dark ? "text-alba/[0.06]" : "text-basalto/[0.045]"
-                  }`}
-                >
-                  {v.puntos}
-                </span>
-                <span className={`t-destacado relative w-fit rounded-sm px-2.5 py-1 text-[10px] ${v.tagClass}`}>
-                  {v.categoria}
-                </span>
-                <h3 className="sr-only">{v.linea}</h3>
-                <div className="relative mt-5 mb-2.5 h-6 w-32">
-                  <LineWordmark line={v.wordmark} tone={v.dark ? "light" : "dark"} />
-                </div>
-                <p
-                  className={`t-body relative text-[12.5px] leading-relaxed ${
-                    v.dark ? "text-alba/58" : "text-basalto/62"
-                  }`}
-                >
-                  {v.texto}
-                </p>
-                <div className="relative mt-auto flex items-center gap-2.5 pt-6">
-                  <div
-                    className={`flex h-9 w-9 items-center justify-center rounded-full border ${
-                      v.dark ? "border-alba/35" : "border-basalto/20"
+                {v.bgImage && (
+                  <Image
+                    src={v.bgImage}
+                    alt=""
+                    aria-hidden="true"
+                    fill
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                    className="object-cover"
+                    style={{ objectPosition: v.bgPosition }}
+                  />
+                )}
+                {!v.bgImage && (
+                  <span
+                    aria-hidden
+                    className={`t-headline pointer-events-none absolute -right-2 -top-6 select-none text-[160px] leading-none ${
+                      v.dark ? "text-alba/[0.06]" : "text-basalto/[0.045]"
                     }`}
                   >
-                    <span className="t-headline text-[13px]">{v.puntos}</span>
-                  </div>
-                  <span className={`text-[10.5px] ${v.dark ? "text-alba/50" : "text-basalto/45"}`}>
-                    James Suckling
+                    {v.puntos}
                   </span>
+                )}
+                {/* la botella deja lugar en la foto de un lado; el contenido se corre al otro para no taparla */}
+                <div
+                  className={`relative flex flex-1 flex-col ${
+                    v.bottleSide === "left" ? "ml-[46%]" : v.bottleSide === "right" ? "max-w-[54%]" : ""
+                  }`}
+                >
+                  <span className={`t-destacado w-fit rounded-sm px-2.5 py-1 text-[10px] ${v.tagClass}`}>
+                    {v.categoria}
+                  </span>
+                  <h3 className="sr-only">{v.linea}</h3>
+                  <LineWordmark
+                    line={v.wordmark}
+                    tone={v.dark ? "light" : "dark"}
+                    className="mt-5 mb-3 h-8 w-32 sm:h-10 sm:w-44"
+                  />
+                  <p
+                    className={`t-body text-[12.5px] leading-relaxed ${
+                      v.dark ? "text-alba/58" : "text-basalto/62"
+                    }`}
+                  >
+                    {v.texto}
+                  </p>
+                  <div className="mt-auto flex items-center gap-2.5 pt-6">
+                    <div
+                      className={`flex h-9 w-9 items-center justify-center rounded-full border ${
+                        v.dark ? "border-alba/35" : "border-basalto/20"
+                      }`}
+                    >
+                      <span className="t-headline text-[13px]">{v.puntos}</span>
+                    </div>
+                    <span className={`text-[10.5px] ${v.dark ? "text-alba/50" : "text-basalto/45"}`}>
+                      James Suckling
+                    </span>
+                  </div>
                 </div>
               </div>
             ))}

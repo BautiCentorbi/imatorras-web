@@ -162,6 +162,89 @@ mano; no se suben al repo.
 
 ## Historial de sesiones
 
+### 2026-09-14 (cont. 6) — Historia (estampilla + "por qué iMatorras"), hero con parallax, y un bug real de alineación
+- **Historia:** se sumó la estampilla de San Martín (`public/images/Estampilla-San_Martin.webp`)
+  como recurso en el Hero (vía `children` de `PageHeader`), y una
+  sección nueva "El nombre" — por qué "iMatorras" (la "i" como forma
+  de decir que el legado de Gregoria Matorras se sostiene hoy, con
+  mirada contemporánea — reusa el "tradición y modernidad" que ya
+  aparece varias veces en las fichas de vino, no es un dato inventado).
+  La frase del fundador quedó como "iMatorras fue fundada en 2019 por
+  Joaquín Campos..." (antes arrancaba con el nombre de la persona).
+- **Viñedos:** el Hero pasó a ser la foto con parallax de fondo
+  (`Parrallax-Viñedos.webp`, `public/images/`), con el texto
+  encima — se sacó el bloque de parallax que antes vivía aparte más
+  abajo en la página, y se le sumó el párrafo largo de intro al Hero
+  para que quede más alto.
+- **`components/Parallax.tsx` (nuevo):** efecto de scroll real (no
+  `background-attachment:fixed`, que anda mal en mobile Safari),
+  respeta `prefers-reduced-motion`. Tuvo dos bugs de diseño reales
+  en el camino, los dos ya resueltos — anotados acá porque son
+  fáciles de reintroducir si se vuelve a tocar este componente:
+  1. La fórmula de desplazamiento inicial dependía de qué tan
+     visible estaba el bloque, lo que la hacía casi imperceptible
+     cuando el bloque es el primero de la página (ya visible al
+     cargar, sin "entrada" desde abajo). Se cambió a `offset =
+     -rect.top * speed`: directo y proporcional a cuánto se scrolleó.
+  2. Para darle margen de desplazamiento sin mostrar bordes vacíos,
+     agrandaba la CAJA de la imagen (con `top`/`bottom` negativos).
+     Eso hacía que la caja quedara desproporcionadamente alta/angosta
+     y `object-position` perdiera el margen vertical para posicionar
+     — cualquier valor de encuadre daba igual. Arreglado escalando la
+     imagen ya encuadrada (`transform: scale(1.35)`) en vez de
+     agrandar el contenedor — así `object-position` se respeta.
+- **`components/PageHeader.tsx` — bug real de alineación:** para
+  anclar el texto abajo en los heroes con foto, se le agregó
+  `flex flex-col justify-end` a la sección — pero eso se aplicaba
+  **siempre**, no solo con foto, y rompió la alineación horizontal en
+  todos los headers (incluido el de Historia, sin foto, que se vio
+  con la estampilla superpuesta) corriendo el bloque de texto hacia
+  la derecha respecto del resto de las secciones de la página
+  (confirmado comparando el HTML/clases renderizadas real contra la
+  sección de fincas — mismo `mx-auto max-w-[1440px] px-6 md:px-16`
+  en ambos, pero el resultado visual difería por el `flex` del
+  padre). Arreglado sacando el `flex` por completo y anclando el
+  texto abajo con `position: absolute; bottom: 0` en su lugar —
+  mecanismo más simple, sin la ambigüedad de cómo un margen `auto`
+  interactúa con `align-items: stretch` en un contenedor flex.
+  **Si en el futuro hace falta un hero con contenido anclado abajo,
+  usar `absolute inset-x-0 bottom-0`, no `flex justify-end`.**
+
+### 2026-09-14 (cont. 5) — Fichas técnicas reales de los 9 vinos + limpieza de contenido
+- El usuario marcó que la sección "Seis principios" de `/historia` no
+  tenía sentido para un visitante (eran los principios de estilo del
+  brandbook, contenido interno de diseño, no algo que le importe a un
+  cliente) — se sacó esa sección entera de la página.
+- A pedido del usuario de "recaudar más información" en vez de dejar
+  contenido pobre, se leyeron los 9 PDF de ficha técnica individual
+  (`public/claude_context/FT-*.pdf`, uno por vino) que no se habían
+  usado todavía. Tenían datos exactos (cosecha, proceso de
+  maceración/fermentación, crianza, alcohol, producción en botellas,
+  puntajes por crítico) que **no estaban en el brochure general** o
+  que el brochure resumía distinto.
+- Esto corrigió errores reales metidos antes:
+  - **Finca Gottardini** (Tupungato) da Chardonnay y **Pinot Noir**
+    (línea Don José) — no "Cabernet Sauvignon de Apelación" como
+    había puesto mal en `lib/fincas.ts`.
+  - Existe un vino real **"Apelación Tupungato"** (Cabernet Sauvignon
+    · Malbec, de El Peral + San José) — se había descartado esa
+    línea por error al no encontrarla nombrada así en el brochure.
+  - Matorras Malbec y Rosado son de **El Peral y San José** (viñas
+    mezcladas), no solo San José — dato que había "corregido" mal
+    hacia atrás basándome en el brochure resumido.
+- `lib/wines.ts` reescrito con las 9 fichas completas y reales (ya no
+  hay ningún vino con "ficha técnica próximamente" — los 9 tienen
+  datos verificados). `app/vinos/[linea]/page.tsx` ahora muestra
+  cosecha/crianza/alcohol/producción reales por vino, no solo un
+  párrafo genérico.
+- El usuario confirmó año de fundación (**2019**) y fundador
+  (**Joaquín Campos**) — sumado como crédito discreto en `/historia`.
+  También compartió contexto adicional sobre el origen de la bodega
+  que **no está publicado todavía** (nombres de terceros y una
+  historia societaria sensible) — se guardó aparte, fuera del repo, y
+  el usuario fue claro en que todavía no decidió si/cómo contar esa
+  parte en la web. No tocar ese tema sin volver a preguntar.
+
 ### 2026-09-14 (cont. 3) — Altitudes, marquee, y formulario funcionando de verdad
 - **Altitudes corregidas** (dato del usuario, no del brandbook — la
   fuente PDF tenía "1200 msnm" para las tres fincas, pero es

@@ -32,13 +32,13 @@ export const fincas: Finca[] = [
     tagClass: "bg-linea-tupungato text-[#e9eef2]",
     nombre: "Finca Gottardini",
     resumen:
-      "En el corazón de Tupungato. Paisajes de altura que dan origen al Chardonnay y al Cabernet Sauvignon de nuestra línea Apelación.",
+      "En el corazón de Tupungato. Hogar del Chardonnay y el Pinot Noir de nuestra línea Don José.",
     detalle:
-      "Ubicada en el corazón de Tupungato, Finca Gottardini es el hogar de nuestras variedades de mayor frescura. Los paisajes de altura y el amplio salto térmico entre el día y la noche producen vinos elegantes y expresivos, con una acidez natural que capta con precisión la tierra mendocina.",
+      "Ubicada en el corazón de Tupungato, Finca Gottardini es el hogar de nuestras variedades Chardonnay y Pinot Noir. Este viñedo, rodeado de paisajes únicos, produce vinos elegantes y expresivos que capturan la esencia de la tierra mendocina.",
     altitud: "1100 msnm",
     suelo: "Pedregoso, drenaje rápido",
     riego: "Tradicional por surco",
-    varietales: ["Chardonnay", "Cabernet Sauvignon"],
+    varietales: ["Chardonnay", "Pinot Noir"],
   },
   {
     slug: "el-peral",

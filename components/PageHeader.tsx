@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { Parallax } from "@/components/Parallax";
 
 /**
  * Encabezado de página interior. Siempre en Basalto (con foto opcional
@@ -14,6 +15,7 @@ export function PageHeader({
   lede,
   image,
   imagePosition = "50% 50%",
+  parallax = false,
   back = true,
   children,
 }: {
@@ -22,27 +24,44 @@ export function PageHeader({
   lede?: string;
   image?: string;
   imagePosition?: string;
+  /** La imagen se mueve más lento que el scroll en vez de quedar fija. */
+  parallax?: boolean;
   back?: boolean;
   children?: ReactNode;
 }) {
   return (
-    <section className="relative overflow-hidden bg-basalto pt-[150px] pb-20 text-alba md:pt-[170px] md:pb-24">
+    <section
+      className={`relative overflow-hidden bg-basalto pt-[150px] text-alba md:pt-[170px] ${
+        image ? "min-h-[85vh] md:min-h-[90vh]" : "pb-20 md:pb-24"
+      }`}
+    >
       {image && (
         <>
-          <Image
-            src={image}
-            alt=""
-            aria-hidden="true"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-            style={{ objectPosition: imagePosition }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-basalto/80 via-basalto/55 to-basalto" />
+          {parallax ? (
+            <Parallax fill src={image} alt="" position={imagePosition} />
+          ) : (
+            <Image
+              src={image}
+              alt=""
+              aria-hidden="true"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
+              style={{ objectPosition: imagePosition }}
+            />
+          )}
+          {/* degradado solo abajo, para tapar el corte con la siguiente sección — el resto de la imagen queda a la vista */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,transparent_30%,var(--color-basalto)_100%)]" />
         </>
       )}
-      <div className="relative mx-auto max-w-[1440px] px-6 md:px-16">
+      <div
+        className={
+          image
+            ? "absolute inset-x-0 bottom-0 mx-auto max-w-[1440px] px-6 pb-10 md:px-16 md:pb-14"
+            : "relative mx-auto max-w-[1440px] px-6 md:px-16"
+        }
+      >
         {back && (
           <Link
             href="/"

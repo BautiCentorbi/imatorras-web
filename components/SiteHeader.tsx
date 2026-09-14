@@ -6,10 +6,11 @@ import { Logo } from "@/components/Logo";
 import { WHATSAPP_URL } from "@/lib/site-config";
 
 const LINKS = [
-  { href: "#historia", label: "Historia" },
-  { href: "#vinedos", label: "Viñedos" },
-  { href: "#vinos", label: "Vinos" },
-  { href: "#contacto", label: "Contacto" },
+  { href: "/historia", label: "Historia" },
+  { href: "/vinedos", label: "Viñedos" },
+  { href: "/vinos", label: "Vinos" },
+  { href: "/donde-comprar", label: "Dónde comprar" },
+  { href: "/contacto", label: "Contacto" },
 ];
 
 export function SiteHeader() {
@@ -38,22 +39,24 @@ export function SiteHeader() {
             scrolled ? "px-6 py-2.5 md:px-8 md:py-3" : "px-6 py-6 md:px-10 md:py-7 xl:px-16"
           }`}
         >
-          <Logo
-            variant="texto"
-            tone="light"
-            priority
-            className={scrolled ? "h-7 md:h-8" : "h-10 md:h-12 xl:h-14"}
-          />
+          <Link href="/" aria-label="iMatorras — Inicio">
+            <Logo
+              variant="texto"
+              tone="light"
+              priority
+              className={scrolled ? "h-7 md:h-8" : "h-10 md:h-12 xl:h-14"}
+            />
+          </Link>
 
           <nav className="hidden items-center gap-8 t-destacado text-[11px] md:flex xl:gap-10 xl:text-[12.5px]">
             {LINKS.map((l) => (
-              <a
+              <Link
                 key={l.href}
                 href={l.href}
                 className="relative py-1 opacity-90 transition-opacity duration-200 hover:opacity-100 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100"
               >
                 {l.label}
-              </a>
+              </Link>
             ))}
           </nav>
 

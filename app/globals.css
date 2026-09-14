@@ -32,7 +32,7 @@
   --color-linea-rosado: var(--color-linea-rosado);
   --font-sans: var(--font-host-grotesk);
 
-  --animate-marquee: marquee 32s linear infinite;
+  --animate-marquee: marquee 140s linear infinite;
 }
 
 body {
@@ -44,6 +44,12 @@ body {
 @keyframes marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
+}
+
+/* El badge flotante de reCAPTCHA se oculta a propósito: el aviso de
+   términos/privacidad requerido se muestra como texto en ContactForm. */
+.grecaptcha-badge {
+  visibility: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {
